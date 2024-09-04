@@ -1,0 +1,23 @@
+{% extends "delights/base.html" %}
+
+{% block content %}
+<div class="menu-content">
+    <h1>The Menu: </h1>
+    <div class="table">
+    {% for item in menu %}
+    <div class='plus'>
+        <a class= "add-req" href="{% url 'add_recipereq' %}"> ➕ </a>
+        <p>{{ item.menuitem }}</p> <!-- name of the menu item -->
+    </div>
+        <ul>
+        {% for requirement in item.reciperequirement_set.all %}
+            <li>{{ requirement.ingredients.name }}: {{ requirement.quantity }} units --------------------------------- {{ requirement.ingredients.price }}$ </li> <!-- each ingredient and quantity -->
+        {% endfor %}
+        </ul>
+    {% endfor %}
+</div>
+<div>
+    <a class= "add-button" href="{% url 'add_item' %}">Add new item</a>
+</div>
+</div>
+{% endblock %}

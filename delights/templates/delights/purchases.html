@@ -1,0 +1,17 @@
+{% extends "delights/base.html" %}
+
+{% block content %}
+<div class= "purchase-content">
+<h1>Purchases: </h1>
+<table class="table">
+    {% for purchase in purchases %}
+    <tr>
+        <td> {{ purchase.menuitem }}</td>
+        <td> {{ purchase.date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a class= "add-button" href="{% url 'add_purchase' %}">Add a new purchase!</a>
+
+</div>
+{% endblock %}

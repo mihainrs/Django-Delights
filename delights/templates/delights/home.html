@@ -1,0 +1,22 @@
+{% extends "delights/base.html" %}
+
+{% block content %}
+<div class="menu-content">
+<h1>Welcome to Django Delights, {{ user.username|default:"Anonymous" }}!</h1>
+
+<ul class='SU-list'>
+    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li>
+        {% if user.is_authenticated %}
+        <form id="logout-form" action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">
+                Logout
+            </button>
+        </form>
+        {% endif %}
+    </li>
+</ul>
+</div>
+{% endblock %}
