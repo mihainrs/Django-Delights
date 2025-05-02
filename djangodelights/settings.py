@@ -16,11 +16,6 @@ from decouple import config # type: ignore
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY =config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-ALLOWED_HOSTS = ['django-delights.herokuapp.com', '127.0.0.1']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -123,3 +118,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logout'
 LOGIN_URL = 'login'
+
+import django_heroku
+import dj_database_url
+import os
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
+# Set static files handling
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# For Whitenoise
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+# Database config (Heroku replaces default DB with PostgreSQL)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+# Security
+DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY')
+ALLOWED_HOSTS = ['django-delights.herokuapp.com', '127.0.0.1']
