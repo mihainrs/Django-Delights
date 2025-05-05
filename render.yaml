@@ -5,7 +5,7 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: |
       echo "Applying migrations..." && \
-      python manage.py migrate --noinput && \
+      python manage.py migrate --noinput || { echo 'Migrations failed'; exit 1; } && \
       echo "Starting Gunicorn..." && \
       gunicorn djangodelights.wsgi:application
     envVars:
