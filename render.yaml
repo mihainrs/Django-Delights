@@ -11,3 +11,5 @@ services:
         sync: false
     postdeploy: |
       python manage.py migrate
+      python manage.py showmigrations
+
