@@ -68,9 +68,11 @@ DATABASES = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Security
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
+ALLOWED_HOSTS = ['*']  # temporarily allow all hosts
+
 SECRET_KEY = config('SECRET_KEY')
-ALLOWED_HOSTS = []
+
 
 # Login URLs
 LOGIN_REDIRECT_URL = 'home'
