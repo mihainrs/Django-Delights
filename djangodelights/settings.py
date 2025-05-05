@@ -60,16 +60,17 @@ STATICFILES_DIRS = [
 
 # Database config (Heroku replaces default DB with PostgreSQL)
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='sqlite:///db.sqlite3')
+    )
 }
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Security
 DEBUG = config('DEBUG', default=False, cast=bool)
 SECRET_KEY = config('SECRET_KEY')
-ALLOWED_HOSTS = ['django-delights.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Login URLs
 LOGIN_REDIRECT_URL = 'home'
