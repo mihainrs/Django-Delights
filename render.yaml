@@ -4,7 +4,9 @@ services:
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: |
-      python manage.py migrate && \
+      echo "Applying migrations..." && \
+      python manage.py migrate --noinput && \
+      echo "Starting Gunicorn..." && \
       gunicorn djangodelights.wsgi:application
     envVars:
       - key: DATABASE_URL
