@@ -3,13 +3,10 @@ services:
     name: django-delights
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn djangodelights.wsgi:application
+    startCommand: bash -c "python manage.py migrate && gunicorn djangodelights.wsgi:application"
     envVars:
       - key: DATABASE_URL
         sync: false
       - key: SECRET_KEY
         sync: false
-    postdeploy: |
-      python manage.py migrate
-      python manage.py showmigrations
 
